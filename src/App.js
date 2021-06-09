@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import HookContext from "./newContext"
-import ProductBox from "./productbox"
+import ProductCard from "./productcard"
 import './App.css'
 
 async function getProduct(productID){
@@ -35,7 +35,7 @@ useEffect(() => {products()}, [])
     <HookContext.Provider value ={product}>
     <div>
       <h1>Products</h1>
-        <ProductBox />
+        <ProductCard />
     </div>
 
     </HookContext.Provider>
