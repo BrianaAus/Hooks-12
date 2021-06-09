@@ -1,25 +1,46 @@
-import logo from './logo.svg';
-import './App.css';
+import React, {useState, useEffect} from "react";
+import HookContext from "./newContext"
+import ProductBox from "./productbox"
+import './App.css'
 
-function App() {
+async function getProduct(productID){
+  const url = "'http://52.26.193.201:3000/products/'+'productID'"; 
+  const response = await fetch(url); 
+  return response;
+}
+
+
+
+function App () {
+
+const [product, setProduct] = useState([])
+
+const products = async () => {
+  const url = "http://52.26.193.201:3000/products/list";
+  const response = await fetch(url); 
+  const data = await response.json()
+  
+  return setProduct(data);
+}
+
+useEffect(() => {products()}, [])
+  
+
+  // const products = await getProductsList()
+  // setState({ products: [state.products]})
+  // const specificProduct = getProduct(1)
+  // const {products} = state;
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <HookContext.Provider value ={product}>
+    <div>
+      <h1>Products</h1>
+        <ProductBox />
     </div>
+
+    </HookContext.Provider>
   );
 }
+
 
 export default App;
